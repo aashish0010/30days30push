@@ -9,6 +9,6 @@ namespace Service.Interface
 {
     public interface ILogininterface
     {
-        Task<IEnumerable<Login>> Login(LoginRequest request);
+        Task<dynamic> Login(LoginRequest request);
     }
 }

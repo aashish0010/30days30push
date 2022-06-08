@@ -9,9 +9,12 @@ namespace Entity.Model
     public class Login
     {
         public string Username { get; set; }
-        public string citizenshipnumber { get; set; }
+        public string Citizenshipnumber { get; set; }
         public string Email { get; set; }
         public string Designationname { get; set; }
+        public string Token { get; set; }
+        public int StatusCode { get; set; }
+        public string Message { get; set; }
     }
     public class LoginRequest
     {

@@ -1,8 +1,6 @@
 ﻿using Entity.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BasicProject.ApiControllers
@@ -16,10 +14,12 @@ namespace BasicProject.ApiControllers
         {
             _unitOfWork = unit;
         }
+        [Route("~/api/login")]
         [HttpPost]
-        public async Task<IEnumerable<Login>> Login(LoginRequest model)
+        public async Task<IActionResult> Login(LoginRequest model)
         {
-            return await _unitOfWork.login.Login(model);
+            var data = await _unitOfWork.login.Login(model);
+            return Ok(data);
         }
     }
 }

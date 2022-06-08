@@ -1,4 +1,5 @@
-﻿using Service.Service;
+﻿using Infrastructure.Jwt;
+using Service.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Service
     public interface IUnitOfWork
     {
         public LoginService login { get; }
+        public TokenService token { get; }
     }
 }

@@ -13,7 +13,6 @@ namespace Infrastructure.Dapper
             SqlConnection connection = new SqlConnection(DbConn.ConnectionString);
             if (connection.State == ConnectionState.Closed) connection.Open();
             return connection;
-
         }
         public static IEnumerable<T> RunQueryWithModel<T>(string sql,Dictionary<string,string> dict =null)
         {
@@ -25,7 +24,7 @@ namespace Infrastructure.Dapper
                     param = DynamicParam(dict);
                 }
                 
-                return conn.Query<T>(sql, param);
+                return conn.Query<T>(sql, param, commandType: CommandType.StoredProcedure);
             }
         }
         public async static Task<IEnumerable<T>> RunQueryWithModelAync<T>(string sql, Dictionary<string, string> dict = null)
@@ -37,7 +36,7 @@ namespace Infrastructure.Dapper
                 {
                     param = DynamicParam(dict);
                 }
-                return await conn.QueryAsync<T>(sql, param);
+                return await conn.QueryAsync<T>(sql, param, commandType: CommandType.StoredProcedure);
 
             }
         }
@@ -51,7 +50,7 @@ namespace Infrastructure.Dapper
                 {
                     param = DynamicParam(dict);
                 }
-                return conn.Query(sql, param);
+                return conn.Query(sql, param,commandType:CommandType.StoredProcedure);
             }
         }
         public async static Task<IEnumerable<dynamic>> RunQueryWithoutModelAsync(string sql, Dictionary<string, string> dict = null)
@@ -63,7 +62,7 @@ namespace Infrastructure.Dapper
                 {
                     param = DynamicParam(dict);
                 }
-                return await conn.QueryAsync(sql, param);
+                return await conn.QueryAsync(sql, param, commandType: CommandType.StoredProcedure);
             }
         }
         public static void RunSql(string sql, Dictionary<string, string> dict = null)
@@ -75,7 +74,7 @@ namespace Infrastructure.Dapper
                 {
                     param = DynamicParam(dict);
                 }
-                con.Execute(sql, param);
+                con.Execute(sql, param, commandType: CommandType.StoredProcedure);
             }
         }
         public static DynamicParameters DynamicParam(Dictionary<string,string> dict)
