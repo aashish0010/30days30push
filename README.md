@@ -1,4 +1,4 @@
-# 30day30pushes
+# 30days30push
 Best Practice Project of asp.net core
 
 Day 1
