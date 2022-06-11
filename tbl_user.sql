@@ -1,13 +1,13 @@
 ﻿USE [Basic]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_user]    Script Date: 6/6/2022 9:55:28 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_user]    Script Date: 6/11/2022 10:14:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[sp_user] (
-	@nameorcitizen VARCHAR(50)
-	, @password VARCHAR(max)
+	@nameorcitizen VARCHAR(50)=NULL
+	, @password VARCHAR(max)=NULL
 	, @email VARCHAR(100)= NULL
 	, @flag VARCHAR(10)= NULL
 	, @username VARCHAR(100)= NULL
@@ -22,6 +22,8 @@ AS
 BEGIN
 	IF (@flag = 'Login')
 	BEGIN
+	
+	
 		DECLARE @Check NVARCHAR(max)
 
 		CREATE TABLE #temp (
@@ -36,8 +38,7 @@ BEGIN
 		INSERT INTO #temp
 		EXEC (@Check)
 
-		SELECT *
-		FROM #temp
+		
 
 		IF @@ROWCOUNT > 0
 		BEGIN
@@ -69,21 +70,23 @@ BEGIN
 					END
 					ELSE
 					BEGIN
-						SELECT 200 StatusCode
-							, 'Login Successfully' Message
-
-						SELECT u.*,d.*
+						
+						SELECT u.username,u.citizenshipnumber,u.email,d.designationname
 						FROM tbl_user u
-						Join tbl_designation d on u.id=d.userid
+						Join tbl_designation d on u.designation=d.id
 						WHERE username = @nameorcitizen
 							OR citizenshipnumber = @nameorcitizen
+
+						
 
 						DROP TABLE #temp
 					END
 				END
 				ELSE
 				BEGIN
-					UPDATE tbl_user
+				Select 400 StatusCode,
+				'Password Incorrect' Message
+					UPDATE tbl_user 
 					SET lockcount = (
 							SELECT (ISNULL(lockcount, 0) + 1)
 							FROM #temp
@@ -173,5 +176,13 @@ BEGIN
 
 			DROP TABLE #temp
 		END
+	END
+
+
+	IF(@flag='GetById')
+	BEGIN
+	select tbl_designation.designationname,* from tbl_user 
+	join tbl_designation on tbl_user.designation=tbl_designation.id
+	where username=@username
 	END
 END

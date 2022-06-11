@@ -6,9 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EncryptPasswordHelper" Version="1.0.2" />
+    <PackageReference Include="FluentValidation" Version="11.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+    <PackageReference Include="SweetAlert" Version="1.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Csp" Version="4.3.0" />
+    <PackageReference Include="TripleDES.DataEncryption" Version="1.0.0.1" />
+    <PackageReference Include="Twileloop.ExpressSecurity" Version="1.0.0" />
+    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
   </ItemGroup>
 
   <ItemGroup>

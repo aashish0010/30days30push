@@ -42,5 +42,15 @@ namespace Service.Service
             }
             return login;
         }
+
+        public async Task<IEnumerable<GetByIdLogin>> GetUserById(string username)
+        {
+            string sql = "sp_user";
+            Dictionary<string,string> dict = new Dictionary<string, string>();
+            dict.Add("@username", username);
+            dict.Add("@flag", "GetById");
+            var restr =await DbHelper.RunQueryWithModelAync<GetByIdLogin>(sql, dict);
+            return restr;
+        }
     }
 }

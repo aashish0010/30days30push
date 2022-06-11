@@ -10,14 +10,20 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Service;
 using System.Text;
+using FluentValidation.AspNetCore;
+using Entity.Validator;
+using System.Reflection;
+using System;
 
 namespace BasicProject
 {
     public class Startup
     {
+        public static IConfiguration StaticConfig { get; private set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            StaticConfig = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -28,8 +34,22 @@ namespace BasicProject
             services.AddDbContext<ApplicationDbContext>(
         options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             DbConn.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddControllersWithViews();
-            services.AddSession();
+
+            services.AddControllersWithViews().AddFluentValidation(
+                x =>
+                {
+                    
+                    x.RegisterValidatorsFromAssemblyContaining<Startup>();
+
+                });
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opts =>
@@ -44,6 +64,7 @@ namespace BasicProject
                     };
 
                 });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

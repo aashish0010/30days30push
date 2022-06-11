@@ -1,4 +1,5 @@
-﻿using BasicProject.Models;
+﻿using BasicProject.Cryptography;
+using BasicProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,6 +16,7 @@ namespace BasicProject.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+
             _logger = logger;
         }
 

@@ -1,16 +1,25 @@
-﻿@model Entity.Model.LoginRequest
+﻿@{
+    Layout = null;
+}
 
 
-<p>@TempData["Message"]</p>
+@model Entity.Model.LoginRequest
 
-<section class="vh-100" style="background-color: #9A616D;">
-  <div class="container py-5 h-100">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<body style="background-color:orangered">
+<section class="vh-100">
+  <div class="container py-7 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-10">
+      <div class="col col-xl-6">
         <div class="card" style="border-radius: 1rem;">
-          <div class="row g-0">
-             <div class="col-2"></div>
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+          <div class="row">
+             
+             <div class="col-12 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
                                 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
@@ -18,7 +27,9 @@
                                     <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                     <span class="h1 fw-bold mb-0">Logo</span>
+                    
                   </div>
+                  @*<b style="color:red"  class="d-flex justify-content-center">@TempData["Message"]</b>*@
                   <div class="form-outline mb-4">
                                     @Html.TextBoxFor(m=>m.UserName,new{@class="form-control form-control-lg"})
 
@@ -49,6 +60,33 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
 </section>
+</body>
+
+
+
+
+                  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+                 
+   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+        @if(TempData["Message"]!= null)
+        {
+            <script>
+            Swal.fire(
+ '@TempData["Message"]',
+  'You clicked the button!',
+  '@TempData["Flag"]'
+)
+            </script>
+        };
+    
+
+ 
+    }

@@ -10,5 +10,6 @@ namespace Service.Interface
     public interface ILogininterface
     {
         Task<dynamic> Login(LoginRequest request);
+        Task<IEnumerable<GetByIdLogin>> GetUserById(string username);
     }
 }
