@@ -11,5 +11,6 @@ namespace Service.Interface
     {
         Task<dynamic> Login(LoginRequest request);
         Task<IEnumerable<GetByIdLogin>> GetUserById(string username);
+        Task<IEnumerable<CommonResponse>> Register(Register register);
     }
 }

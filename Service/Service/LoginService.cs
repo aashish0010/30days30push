@@ -52,5 +52,23 @@ namespace Service.Service
             var restr =await DbHelper.RunQueryWithModelAync<GetByIdLogin>(sql, dict);
             return restr;
         }
+
+        public async Task<IEnumerable<CommonResponse>> Register(Register register)
+        {
+            var sql = "sp_user";
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("@username", register.username);
+            dict.Add("@password", register.password);
+            dict.Add("@email", register.email);
+            dict.Add("@firstname", register.firstname);
+            dict.Add("@middlename", register.middlename);
+            dict.Add("@lastname", register.lastname);
+            dict.Add("@citizenshipnumber", register.citizenshipnumber);
+            dict.Add("@iscitizen", "");
+            dict.Add("@phonenumber", register.phonenumber);
+            dict.Add("@flag", "Register");
+            var data =await DbHelper.RunQueryWithModelAync<CommonResponse>(sql, dict);
+            return data;
+        }
     }
 }
