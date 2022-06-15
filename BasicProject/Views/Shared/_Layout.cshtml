@@ -34,8 +34,50 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
 
-                            <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-user"></i> @HttpContextAccessor.HttpContext.Session.GetString("username")</a>
+                            
+                            <li class="nav-item d-flex flex-row-reverse ">
+                            <!-- Button trigger modal -->
+<button onclick="GetData(`@HttpContextAccessor.HttpContext.Session.GetString("username")`)" type="button" class="btn btn-info ml-5 p-2" data-toggle="modal" data-target="#exampleModal">
+ <i class="fa-solid fa-user"></i>  @HttpContextAccessor.HttpContext.Session.GetString("username")
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Hello <b id="designation"></b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+                <div class="col-6">Username: <b id="username"></b></div>
+                <div class="col-6">CitizenShip No: <b id="citizen"></b></div>
+        </div>
+        <hr />
+        <div class="row">
+                <div class="col-6">FirstName: <b id="firstname"></b></div>
+                <div class="col-6">LastName: <b id="lastname"></b></div>
+        </div>
+        <hr />
+
+        <div class="row">
+            
+                <div class="col-6">Email: <b id="email"></b></div>
+                
+        </div>
+        <hr />
+        <div class="row">
+            
+                <div class="col-6">Phone Number: <b id="phonenumber"></b></div>
+                
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
                             </li>
                     </ul>
                 </div>
@@ -52,7 +94,34 @@
         <div class="container">
             &copy; 2022 - BasicProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    </footer>
+
+    <script>
+function GetData(username) {
+    $.ajax({
+    url:'Login/GetByIdUser',
+    method:'POST',
+    data: {username: username},
+    dataType:'json',
+    success: function(data) {
+        console.log(data);
+        $("#username").text(data.username);
+        $("#citizen").text(data.citizenshipnumber);
+        $("#firstname").text(data.firstname);
+        $("#lastname").text(data.lastname);
+        $("#email").text(data.email);
+        $("#phonenumber").text(data.phonenumber);
+        $("#designation").text(data.designationname)
+    },
+    error: function(error) {
+        console.log(error.responseText);
+        alert("Ok");
+    }
+});
+}
+
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Profiler.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

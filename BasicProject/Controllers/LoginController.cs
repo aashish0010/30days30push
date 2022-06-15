@@ -88,9 +88,13 @@ namespace BasicProject.Controllers
                 TempData["Flag"] = "error";
                 return View();
             }
-            return View();
             
             
+        }
+        public async Task<IActionResult> GetByIdUser(string username)
+        {
+            var data= await _unitOfWork.login.GetUserById(username);
+            return Json(data.FirstOrDefault());
         }
     }
 }

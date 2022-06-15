@@ -35,6 +35,11 @@ namespace BasicProject
         options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             DbConn.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
 
+
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+            });
             services.AddControllersWithViews().AddFluentValidation(
                 x =>
                 {
